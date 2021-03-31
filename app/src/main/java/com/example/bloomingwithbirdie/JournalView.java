@@ -2,6 +2,7 @@ package com.example.bloomingwithbirdie;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -64,7 +65,6 @@ public class JournalView extends AppCompatActivity {
                 }
             }
             addLocationBox(locationLayout, "");
-
         }
     }
 
@@ -133,5 +133,11 @@ public class JournalView extends AppCompatActivity {
 
         // Set the ActionBar color based on the module
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
+    }
+
+    public void loadDrawingJournal(View view) {
+        Intent intent = new Intent(this, DrawingJournal.class);
+        intent.putExtra("module", module);
+        startActivity(intent);
     }
 }

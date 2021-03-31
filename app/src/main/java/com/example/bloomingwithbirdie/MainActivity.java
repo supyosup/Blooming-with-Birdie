@@ -11,18 +11,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.internal.VisibilityAwareImageButton;
+
 //TODO: Add buttons for "My Drawings", "Badges", and "GrownUps", add them to the changeView function.
 // Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
     private static Module module1;
-    Module module2;
-    Module module3;
-    Module module4;
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
+    private Module module2;
+    private Module module3;
+    private Module module4;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Setup the ActionBar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.green)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
         getSupportActionBar().setTitle("Blooming With Birdie");
+
+        user = new User("Test User");
 
         /**Ideally, these would be loaded from a DataBase - I'm not sure how realistic that is given the time frame...
          * Additionally, it doesn't seem the data for these persists when we change Activities (Screens), so we will
          * need to find a solution for this.*/
         // Create our Modules, set their names & videoId's for youtube
-        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange));
+        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "monarch.jpg");
         module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow));
         module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue));
         module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red));
@@ -54,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setText(module4.getName());
     }
 
-    /** Changes the view based on what button is clicked and passes the necessary Module */
-    // TODO: Add switch cases for "My Drawings", "Badges", and "GrownUps"
+    /** Changes the view based on what module button is clicked and passes the necessary Module */
     public void loadModule(View view) {
         Intent intent = new Intent(this, YouTubeModuleView.class);
 
@@ -76,5 +80,23 @@ public class MainActivity extends AppCompatActivity {
         }
         if (intent != null)
             startActivity(intent);
+    }
+
+    /** Same functionality as loadModule, however this handles the buttons that are no modules (Drawings, Badges, Grownups)*/
+    public void loadOtherView(View view) {
+        Intent intent = null;
+
+        switch (view.getId()) {
+            case R.id.badgeButton:
+                intent = new Intent(this, BadgeView.class);
+                intent.putExtra("badges", user.getBadges());
+                break;
+            case R.id.drawingButton:
+                intent = new Intent(this, DrawingsView.class);
+                break;
+        }
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 }

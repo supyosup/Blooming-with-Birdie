@@ -17,12 +17,21 @@ public class Module extends BaseObservable implements Serializable {
     private String videoId;
     private Journal journal;
     private int color;
+    private Badge badge;
 
     public Module(String name, String videoId, int color) {
         this.name = name;
         this.videoId = videoId;
         journal = new Journal(name);
         this.color = color;
+    }
+
+    public Module(String name, String videoId, int color, String badgeName, String filePath) {
+        this.name = name;
+        this.videoId = videoId;
+        journal = new Journal(name);
+        this.color = color;
+        badge = new Badge(badgeName, filePath);
     }
 
     public int getColor() {
@@ -53,4 +62,5 @@ public class Module extends BaseObservable implements Serializable {
         this.videoId = videoId;
     }
 
+    public Badge getBadge() { return badge; }
 }
