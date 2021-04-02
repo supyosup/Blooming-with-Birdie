@@ -4,6 +4,7 @@
 
 package com.example.bloomingwithbirdie;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,9 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.material.internal.VisibilityAwareImageButton;
-
-//TODO: Add buttons for "My Drawings", "Badges", and "GrownUps", add them to the changeView function.
+//TODO: Add buttons for "My Drawings", "Badges", and "GrownUps", add them to the loadOtherView function.
 // Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
@@ -35,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
         // Setup the ActionBar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
         getSupportActionBar().setTitle("Blooming With Birdie");
-
+//        getSupportActionBar().setCustomView(ActionBar.DISPLAY_SHOW_CUSTOM);
         user = new User("Test User");
 
         /**Ideally, these would be loaded from a DataBase - I'm not sure how realistic that is given the time frame...
          * Additionally, it doesn't seem the data for these persists when we change Activities (Screens), so we will
          * need to find a solution for this.*/
         // Create our Modules, set their names & videoId's for youtube
-        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "monarch.jpg");
+        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "a");
         module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow));
         module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue));
         module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red));
@@ -89,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.badgeButton:
                 intent = new Intent(this, BadgeView.class);
-                intent.putExtra("badges", user.getBadges());
+                intent.putExtra("user", user);
                 break;
             case R.id.drawingButton:
-                intent = new Intent(this, DrawingsView.class);
+                intent = new Intent(this, MyDrawingsView.class);
                 break;
         }
         if (intent != null) {

@@ -2,7 +2,9 @@ package com.example.bloomingwithbirdie;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
@@ -11,13 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BadgeView extends AppCompatActivity {
     private ArrayList<Badge> badges;
-    int counter = 0;
+    private User user;
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +32,16 @@ public class BadgeView extends AppCompatActivity {
         getSupportActionBar().setTitle("My Badges");
 
         if (getIntent().getExtras() != null) {
-            badges = (ArrayList<Badge>) getIntent().getSerializableExtra("badges");
+            user = (User) getIntent().getSerializableExtra("user");
+            badges = user.getBadges();
 
             for (Badge badge: badges) {
+//                Toast.makeText(getApplicationContext(), getResources().getDrawable(R.drawable.a), Toast.LENGTH_SHORT).show();
                 String imageViewId = "imageView" + counter;
                 int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
                 ImageView imageView = findViewById(resID);
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.a));
+                int resourceId = getResources().getIdentifier(badge.getFilePath(), "drawable", getPackageName());
+                imageView.setImageDrawable(getResources().getDrawable(resourceId));
                 counter++;
             }
         }

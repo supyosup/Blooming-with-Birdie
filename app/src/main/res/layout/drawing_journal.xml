@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DrawingJournal"
+    tools:context=".DrawingJournalView"
     android:background="@drawable/background">
 
     <Button
@@ -49,6 +49,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="60dp"
         android:text="Done!"
+        android:onClick="finishModule"
         android:backgroundTint="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

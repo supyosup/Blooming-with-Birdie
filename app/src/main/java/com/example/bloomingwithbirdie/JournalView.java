@@ -3,11 +3,9 @@ package com.example.bloomingwithbirdie;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -136,7 +134,7 @@ public class JournalView extends AppCompatActivity {
     }
 
     public void loadDrawingJournal(View view) {
-        Intent intent = new Intent(this, DrawingJournal.class);
+        Intent intent = new Intent(this, DrawingJournalView.class);
         intent.putExtra("module", module);
         startActivity(intent);
     }

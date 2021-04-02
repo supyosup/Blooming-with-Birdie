@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DrawingJournal extends AppCompatActivity {
+public class DrawingJournalView extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView imageView;
@@ -105,5 +105,11 @@ public class DrawingJournal extends AppCompatActivity {
 
         // Set the ActionBar color based on the module
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
+    }
+
+    public void finishModule(View view) {
+        Intent intent = new Intent(this, ModuleCompleteView.class);
+        intent.putExtra("module", module);
+        startActivity(intent);
     }
 }

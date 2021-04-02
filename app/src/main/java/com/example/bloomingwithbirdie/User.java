@@ -3,22 +3,20 @@
 
 package com.example.bloomingwithbirdie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
-    private ArrayList<Badge> badges;
+public class User implements Serializable {
+    private ArrayList<Badge> badges = null;
     private String name;
 
     public User(String name) {
         this.name = name;
-        badges = new ArrayList<>();
-        Badge badge = new Badge("Monarch", "monarch.jpg");
-        badges.add(badge);
-        badges.add(badge);
-        badges.add(badge);
-        badges.add(badge);
-        badges.add(badge);
-        badges.add(badge);badges.add(badge);badges.add(badge);badges.add(badge);badges.add(badge);badges.add(badge);badges.add(badge);
+        if (badges == null) {
+            badges = new ArrayList<>();
+        } else {
+            // TODO: else load from DB
+        }
     }
 
     public void addBadge(Badge badge) {
