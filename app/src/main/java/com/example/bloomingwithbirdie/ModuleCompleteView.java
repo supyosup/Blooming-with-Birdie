@@ -22,7 +22,7 @@ public class ModuleCompleteView extends AppCompatActivity {
         badgeView = (ImageView) findViewById(R.id.completeModuleBadgeView);
         Module module = (Module) getIntent().getSerializableExtra("module");
         badge = module.getBadge();
-        user.addBadge(badge);
+//        user.addBadge(badge);
         int imageId = getResources().getIdentifier(badge.getFilePath(), "drawable", getPackageName());
         badgeView.setImageDrawable(getResources().getDrawable(imageId));
     }

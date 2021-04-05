@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Journal implements Serializable {
     private String name;
-    private ArrayList<int[]> dates;
+    private ArrayList<String> dates;
     private ArrayList<String> descriptions;
     private ArrayList<String> locations;
 
@@ -21,13 +21,9 @@ public class Journal implements Serializable {
         locations = new ArrayList<>();
     }
 
-    public void addEntry(int day, int month, int year, String description) {
-        int[] dateEntry = new int[] {day, month, year};
-        dates.add(dateEntry);
-
-        if (!description.isEmpty()) {
-            descriptions.add(description);
-        }
+    public void addEntry(String date, String description) {
+        dates.add(date);
+        descriptions.add(description);
     }
 
     /** Used in for the "Where I saw it" Journal entry**/
@@ -38,6 +34,8 @@ public class Journal implements Serializable {
     public ArrayList<String> getDescriptions() {
         return descriptions;
     }
+
+    public ArrayList<String> getDates() { return dates; }
 
     public ArrayList<String> getLocations() {
         return locations;
