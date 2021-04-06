@@ -21,8 +21,9 @@ public class Journal implements Serializable {
         locations = new ArrayList<>();
     }
 
-    public void addEntry(String date, String description) {
+    public void addEntry(String date, String location, String description) {
         dates.add(date);
+        locations.add(location);
         descriptions.add(description);
     }
 
