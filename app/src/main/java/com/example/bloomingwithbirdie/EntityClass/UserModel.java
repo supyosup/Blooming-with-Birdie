@@ -11,8 +11,7 @@ public class UserModel {
 
     }
 
-    public UserModel(int uid, String name, String password) {
-        this.uid = uid;
+    public UserModel(String name, String password) {
         this.name = name;
         this.password = password;
     }
@@ -26,10 +25,6 @@ public class UserModel {
 
     @ColumnInfo(name = "password")
     private String password;
-
-    public int getUid() { return uid; }
-
-    public void setUid(int uid) { this.uid = uid; }
 
     public void setName(String name) {
         this.name = name;

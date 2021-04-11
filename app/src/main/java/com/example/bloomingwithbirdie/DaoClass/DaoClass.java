@@ -16,7 +16,7 @@ public interface DaoClass {
     List<UserModel> loadAllById(int id);
 
     @Insert
-    void insertAllData(UserModel model);
+    void insertAll(UserModel model);
 
     @Delete
     void delete(UserModel user);
