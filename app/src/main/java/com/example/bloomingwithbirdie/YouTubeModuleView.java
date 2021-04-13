@@ -40,7 +40,7 @@ public class YouTubeModuleView extends AppCompatActivity {
 
         //Turn off background music
         backgroundPlayer = BackgroundPlayer.getSingletonMedia();
-        backgroundPlayer.stop();
+        backgroundPlayer.pause();
 
 
         // Verify that the Module was sent from previous Activity

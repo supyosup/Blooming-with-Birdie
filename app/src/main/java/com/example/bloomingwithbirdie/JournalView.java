@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 //TODO: Update code to dynamically load User data into Date/Location/Description fields, clean up code
 
 public class JournalView extends AppCompatActivity {
+    MediaPlayer backgroundPlayer;
     private ImageButton homeButton;
     private Button dateConfirmButton;
     private Module module;
@@ -76,6 +78,10 @@ public class JournalView extends AppCompatActivity {
                     counter++;
                 }
             }
+
+            //Turn on background music
+            backgroundPlayer = BackgroundPlayer.getSingletonMedia();
+            backgroundPlayer.start();
         }
     }
 
