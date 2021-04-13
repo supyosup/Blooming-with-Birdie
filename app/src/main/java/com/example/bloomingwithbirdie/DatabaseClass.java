@@ -1,4 +1,4 @@
-package com.example.bloomingwithbirdie.EntityClass;
+package com.example.bloomingwithbirdie;
 
 import android.content.Context;
 
@@ -8,8 +8,11 @@ import java.util.concurrent.Executors;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database(entities = {UserModel.class}, version = 1)
+@Database(entities = {User.class}, version = 1)
+@TypeConverters(Converters.class)
+
 public abstract class DatabaseClass extends RoomDatabase { //AppDatabase
     //public abstract DaoClass daoClass();
 

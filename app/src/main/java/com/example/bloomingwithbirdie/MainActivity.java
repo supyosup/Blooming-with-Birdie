@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
         getSupportActionBar().setTitle("Blooming With Birdie");
 //        getSupportActionBar().setCustomView(ActionBar.DISPLAY_SHOW_CUSTOM);
-        user = new User("Test User");
+        user = new User("Test User", "pa33w0rd");
 
         /**Ideally, these would be loaded from a DataBase - I'm not sure how realistic that is given the time frame...
          * Additionally, it doesn't seem the data for these persists when we change Activities (Screens), so we will

@@ -1,25 +1,25 @@
-package com.example.bloomingwithbirdie.DaoClass;
+package com.example.bloomingwithbirdie;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import java.util.List;
-import com.example.bloomingwithbirdie.EntityClass.UserModel;
+import com.example.bloomingwithbirdie.User;
 @Dao
 public interface DaoClass {
     //Select All
     @Query("SELECT * FROM user")
-    List<UserModel> getAll();
+    List<User> getAll();
 
     @Query("SELECT * FROM user WHERE uid = :id")
-    List<UserModel> loadAllById(int id);
+    List<User> loadAllById(int id);
 
     @Insert
-    void insertAll(UserModel model);
+    void insertAll(User model);
 
     @Delete
-    void delete(UserModel user);
+    void delete(User user);
 
     @Query("DELETE FROM User")
     void deleteAll();
