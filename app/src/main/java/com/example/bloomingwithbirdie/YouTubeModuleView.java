@@ -19,7 +19,9 @@ import android.widget.LinearLayout;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 
  //FIXME: The YouTube player fullscreen mode does not properly exit.
  // Possible solution: Try using the Official YouTubePlayer that Google has, but the setup is a bit more involved.
@@ -27,6 +29,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 public class YouTubeModuleView extends AppCompatActivity {
     MediaPlayer backgroundPlayer;
     private YouTubePlayerView playerView;
+    private YouTubePlayerTracker tracker;
     private Module module;
     private Button journalButton;
 
@@ -36,11 +39,9 @@ public class YouTubeModuleView extends AppCompatActivity {
         setContentView(R.layout.youtube_module_view);
         playerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(playerView);
-        journalButton = findViewById(R.id.journalButton);
-
-        //Turn off background music
         backgroundPlayer = BackgroundPlayer.getSingletonMedia();
-        backgroundPlayer.pause();
+        tracker = new YouTubePlayerTracker();
+        journalButton = findViewById(R.id.journalButton);
 
 
         // Verify that the Module was sent from previous Activity
@@ -60,10 +61,24 @@ public class YouTubeModuleView extends AppCompatActivity {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     String videoId = module.getVideoId();
+                    youTubePlayer.addListener(tracker);
                     youTubePlayer.cueVideo(videoId, 0);
+
                 }
             });
         }
+
+        if(tracker.getState() == PlayerConstants.PlayerState.BUFFERING)
+        {
+            //Turn off background music
+            backgroundPlayer.pause();
+        }
+        if(tracker.getState() == PlayerConstants.PlayerState.ENDED)
+        {
+            backgroundPlayer.start();
+        }
+
+
     }
 
     /** Loads the next view of the Application */
