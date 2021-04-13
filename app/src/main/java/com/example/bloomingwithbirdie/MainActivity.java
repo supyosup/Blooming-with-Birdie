@@ -33,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialize Media Player
-        backgroundMusic = MediaPlayer.create(this, R.raw.bloomin_w_birdie_theme);
-        backgroundMusic.setLooping(true);
-        backgroundMusic.start();
-
 
         // Setup the ActionBar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
@@ -64,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         button3.setText(module3.getName());
         button4 = findViewById(R.id.module4);
         button4.setText(module4.getName());
+
+        //Initialize Media Player
+        backgroundMusic = MediaPlayer.create(this, R.raw.bloomin_w_birdie_theme);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.start();
     }
 
     /** Changes the view based on what module button is clicked and passes the necessary Module */

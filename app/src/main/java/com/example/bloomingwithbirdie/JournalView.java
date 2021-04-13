@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //TODO: Update code to dynamically load User data into Date/Location/Description fields, clean up code
 
 public class JournalView extends AppCompatActivity {
+    private ImageButton homeButton;
     private Button dateConfirmButton;
     private Module module;
     private DatePicker datePicker;
@@ -23,6 +26,8 @@ public class JournalView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_view);
+
+
         datePicker = findViewById(R.id.datePicker);
         dateConfirmButton = findViewById(R.id.dateConfirmButton);
         datePicker.setBackgroundColor(getResources().getColor(R.color.green));
@@ -74,6 +79,7 @@ public class JournalView extends AppCompatActivity {
         }
     }
 
+
     public void toggleDatePicker(View view) {
         textId = view.getId();
         view.setBackgroundColor(getResources().getColor(R.color.yellow));
@@ -111,6 +117,13 @@ public class JournalView extends AppCompatActivity {
      **/
     public void loadDrawingJournal(View view) {
         Intent intent = new Intent(this, DrawingJournalView.class);
+        intent.putExtra("module", module);
+        startActivity(intent);
+    }
+
+    public void homeButtonPressed(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("module", module);
         startActivity(intent);
     }
