@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
  // Possible solution: Try using the Official YouTubePlayer that Google has, but the setup is a bit more involved.
 
 public class YouTubeModuleView extends AppCompatActivity {
+    MediaPlayer backgroundPlayer;
     private YouTubePlayerView playerView;
     private Module module;
     private Button journalButton;
@@ -35,6 +37,11 @@ public class YouTubeModuleView extends AppCompatActivity {
         playerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(playerView);
         journalButton = findViewById(R.id.journalButton);
+
+        //Turn off background music
+        backgroundPlayer = BackgroundPlayer.getSingletonMedia();
+        backgroundPlayer.stop();
+
 
         // Verify that the Module was sent from previous Activity
         if (getIntent().getExtras() != null) {
@@ -75,5 +82,5 @@ public class YouTubeModuleView extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
     }
 
-    public void pauseBackground()
+
 }
