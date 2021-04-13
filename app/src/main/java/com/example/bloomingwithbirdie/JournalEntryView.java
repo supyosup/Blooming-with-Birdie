@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 //TODO: Update code to dynamically load User data into Date/Location/Description fields, clean up code
 
-public class JournalView extends AppCompatActivity {
+public class JournalEntryView extends AppCompatActivity {
     private ImageButton homeButton;
     private Button dateConfirmButton;
     private Module module;
@@ -25,7 +25,7 @@ public class JournalView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.journal_view);
+        setContentView(R.layout.journal_entry_view);
 
 
         datePicker = findViewById(R.id.datePicker);

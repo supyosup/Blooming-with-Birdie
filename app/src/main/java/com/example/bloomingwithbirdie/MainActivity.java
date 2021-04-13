@@ -17,7 +17,8 @@ import android.widget.Button;
 // Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
-    MediaPlayer backgroundMusic;
+    BackgroundPlayer backgroundMusic;
+    MediaPlayer backgroundPlayer;
     private static Module module1;
     private Module module2;
     private Module module3;
@@ -61,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
         button4.setText(module4.getName());
 
         //Initialize Media Player
-        backgroundMusic = MediaPlayer.create(this, R.raw.bloomin_w_birdie_theme);
-        backgroundMusic.setLooping(true);
-        backgroundMusic.start();
+        backgroundMusic = BackgroundPlayer.getInstance();
+        backgroundMusic.init(getApplicationContext());
+        backgroundPlayer = BackgroundPlayer.getSingletonMedia();
+        backgroundPlayer.start();
+
     }
 
     /** Changes the view based on what module button is clicked and passes the necessary Module */
