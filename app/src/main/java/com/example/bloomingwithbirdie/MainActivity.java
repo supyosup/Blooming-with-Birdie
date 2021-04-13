@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.Button;
 // Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
+    MediaPlayer backgroundMusic;
     private static Module module1;
     private Module module2;
     private Module module3;
@@ -30,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialize Media Player
+        backgroundMusic = MediaPlayer.create(this, R.raw.bloomin_w_birdie_theme);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.start();
+
 
         // Setup the ActionBar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
