@@ -74,4 +74,6 @@ public class YouTubeModuleView extends AppCompatActivity {
         // Set the ActionBar color based on the module
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
     }
+
+    public void pauseBackground()
 }
