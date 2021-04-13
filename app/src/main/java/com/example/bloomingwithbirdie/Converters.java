@@ -2,31 +2,41 @@ package com.example.bloomingwithbirdie;
 
 import androidx.room.TypeConverter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Converters {
-    Gson gson = new Gson();
 
     @TypeConverter
     public static List<Badge> stringToBadgeList(String data) {
-        if (data == null) {
+        if (data == null || data == "null") {
             return Collections.emptyList();
         }
-
-        Type Badge = new TypeToken<List<Badge>>() {}.getType();
-
-        return gson.fromJson(data, Badge);
+        //else
+        List<Badge> newList = new ArrayList<Badge>();
+        String[] tokens = data.split(",");
+        String name = null;
+        String filepath = null;
+        for (int i=0;i<tokens.length;i+=2){
+            tokens[i] = name;
+            tokens[i+1] = filepath;
+            Badge tempBadge = new Badge(name, filepath);
+            newList.add(tempBadge);
+        }
+        return newList;
     }
 
     @TypeConverter
     public static String badgeListToString(List<Badge> someObjects) {
-        String converted = null;
-
-        for(Badge badge: someObjects) {
-            badge.getName();
+        if (someObjects == null){
+            return "null";
         }
 
-        return gson.toJson(Badge);
+        String converted = null;
+        for(Badge badge: someObjects) {
+            converted += badge.getName()+","+badge.getFilePath()+",";
+        }
+        return converted;
     }
 }

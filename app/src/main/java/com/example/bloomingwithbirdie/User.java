@@ -26,12 +26,12 @@ public class User implements Serializable {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+        // New Users won't have badges. Those will only apply when existing user
+        badges = new ArrayList<>();
+    }
 
-        if (badges == null) {
-            badges = new ArrayList<>();
-        } else {
-            // TODO: else load from DB
-        }
+    public void setBadges(ArrayList<Badge> badges) {
+        this.badges = badges;
     }
 
     public void addBadge(Badge badge) {

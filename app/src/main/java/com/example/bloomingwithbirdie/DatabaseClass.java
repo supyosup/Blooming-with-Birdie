@@ -12,7 +12,6 @@ import androidx.room.TypeConverters;
 
 @Database(entities = {User.class}, version = 1)
 @TypeConverters(Converters.class)
-
 public abstract class DatabaseClass extends RoomDatabase { //AppDatabase
     //public abstract DaoClass daoClass();
 
