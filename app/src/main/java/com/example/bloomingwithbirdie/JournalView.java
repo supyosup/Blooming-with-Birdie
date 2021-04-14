@@ -39,9 +39,9 @@ public class JournalView extends AppCompatActivity {
             configureActionBar(module);
 
             // Just some test data for the different fields
-//            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
-//            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
-//            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
+            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
+            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
+            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
 
             // If the Journal is not empty, loop through the Journal entries
             // and populate all of the textboxes
