@@ -49,6 +49,7 @@ public class BadgeView extends AppCompatActivity {
 
     public void returnHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }

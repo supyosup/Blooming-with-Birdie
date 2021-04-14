@@ -27,6 +27,7 @@ public class YouTubeModuleView extends AppCompatActivity {
     private YouTubePlayerView playerView;
     private Module module;
     private Button journalButton;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class YouTubeModuleView extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             // Load the module
             module = (Module) getIntent().getSerializableExtra("module");
+            user = (User) getIntent().getSerializableExtra("user");
 
             // Set appropriate ActionBar color & Title
             configureActionBar(module);
@@ -63,6 +65,7 @@ public class YouTubeModuleView extends AppCompatActivity {
     public void loadJournalView(View view) {
         Intent intent = new Intent(this, JournalView.class);
         intent.putExtra("module", module);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

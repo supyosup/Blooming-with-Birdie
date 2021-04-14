@@ -33,8 +33,16 @@ public class LoginView extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * This is where we would put the DB query and return the User account if login is successful
+     *
+     */
     public void login(View view) {
-        Toast toast = Toast.makeText(getApplicationContext(), passwordField.getText(), Toast.LENGTH_LONG);
-        toast.show();
+
+    }
+
+    public void loadCreateAccountPage(View view) {
+        Intent intent = new Intent(this, CreateAccount.class);
+        startActivity(intent);
     }
 }

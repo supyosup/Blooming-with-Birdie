@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
-    tools:context=".LoginView">
+    tools:context=".CreateAccount">
 
-    <Button
-        android:id="@+id/loginButton2"
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/nameField"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="392dp"
-        android:layout_marginTop="376dp"
-        android:backgroundTint="@color/green"
-        android:onClick="loadCreateAccountPage"
-        android:text="Create Account"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="126dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/green"
-        android:onClick="returnHome"
-        android:text="Home"
+        android:layout_marginStart="356dp"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/edittextbackground"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,15 +50,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/verifyPasswordField"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="436dp"
-        android:layout_marginTop="296dp"
-        android:text="Login"
-        android:backgroundTint="@color/green"
-        android:onClick="login"
+        android:layout_marginStart="356dp"
+        android:layout_marginTop="280dp"
+        android:background="@drawable/edittextbackground"
+        android:ems="10"
+        android:hint="Verify Password"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="344dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="@color/green"
+        android:text="Confirm Account Creation"
+        android:onClick="confirmAccountCreation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

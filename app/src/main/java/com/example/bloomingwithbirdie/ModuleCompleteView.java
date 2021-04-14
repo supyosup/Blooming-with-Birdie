@@ -1,13 +1,10 @@
 package com.example.bloomingwithbirdie;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class ModuleCompleteView extends AppCompatActivity {
 
@@ -22,14 +19,14 @@ public class ModuleCompleteView extends AppCompatActivity {
         badgeView = (ImageView) findViewById(R.id.completeModuleBadgeView);
         Module module = (Module) getIntent().getSerializableExtra("module");
         badge = module.getBadge();
-//        user.addBadge(badge);
+        user = (User) getIntent().getSerializableExtra("user");
+        user.addBadge(badge);
         int imageId = getResources().getIdentifier(badge.getFilePath(), "drawable", getPackageName());
         badgeView.setImageDrawable(getResources().getDrawable(imageId));
     }
 
     public void completeModule(View view) {
         //TODO: Add badge to user here, save to DB?
-
         Intent intent = new Intent(this, BadgeView.class);
         intent.putExtra("user", user);
         startActivity(intent);
