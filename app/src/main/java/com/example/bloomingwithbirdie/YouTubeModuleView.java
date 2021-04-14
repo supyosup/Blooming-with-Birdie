@@ -16,9 +16,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
@@ -32,6 +34,7 @@ public class YouTubeModuleView extends AppCompatActivity {
     private YouTubePlayerTracker tracker;
     private Module module;
     private Button journalButton;
+    private YouTubePlayerListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +66,23 @@ public class YouTubeModuleView extends AppCompatActivity {
                     String videoId = module.getVideoId();
                     youTubePlayer.addListener(tracker);
                     youTubePlayer.cueVideo(videoId, 0);
+                    backgroundPlayer.pause();
+                }
 
+                @Override
+                public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
+                    // To view the tracker state in real time
+                    Toast.makeText(getApplicationContext(), tracker.getState().toString(), Toast.LENGTH_SHORT).show();
+
+                    // Wonky pause/play music functionality
+                    if (tracker.getState() == playerState.BUFFERING || tracker.getState() == playerState.PLAYING) {
+                        backgroundPlayer.pause();
+                    } else if (tracker.getState() == playerState.ENDED){
+                        backgroundPlayer.start();
+                    }
                 }
             });
         }
-
-        if(tracker.getState() == PlayerConstants.PlayerState.BUFFERING)
-        {
-            //Turn off background music
-            backgroundPlayer.pause();
-        }
-        if(tracker.getState() == PlayerConstants.PlayerState.ENDED)
-        {
-            backgroundPlayer.start();
-        }
-
-
     }
 
     /** Loads the next view of the Application */
