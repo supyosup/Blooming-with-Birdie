@@ -16,10 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 public class BadgeView extends AppCompatActivity {
-    private ArrayList<Badge> badges;
+    private List<Badge> badges;
     private User user;
     private int counter = 0;
 
@@ -36,7 +36,6 @@ public class BadgeView extends AppCompatActivity {
             badges = user.getBadges();
 
             for (Badge badge: badges) {
-//                Toast.makeText(getApplicationContext(), getResources().getDrawable(R.drawable.a), Toast.LENGTH_SHORT).show();
                 String imageViewId = "imageView" + counter;
                 int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
                 ImageView imageView = findViewById(resID);
@@ -49,6 +48,7 @@ public class BadgeView extends AppCompatActivity {
 
     public void returnHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }

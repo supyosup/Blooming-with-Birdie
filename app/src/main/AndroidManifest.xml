@@ -12,8 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloomingWithBirdie">
-        <activity android:name=".ModuleCompleteView"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".LoginView"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ModuleCompleteView"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".DrawingJournalView"
             android:screenOrientation="landscape" />
@@ -31,6 +35,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".YouTubeModuleView"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CreateAccount"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"

@@ -15,6 +15,12 @@ public interface DaoClass {
     @Query("SELECT * FROM user WHERE uid = :id")
     List<User> loadAllById(int id);
 
+    @Query("SELECT * FROM user WHERE email = :email AND password = :password")
+    List<User> loadAllByEmailPassword(String email, String password);
+
+    @Query("SELECT * FROM user WHERE email = :email")
+    List<User> loadAllByEmail(String email);
+
     @Insert
     void insertAll(User model);
 

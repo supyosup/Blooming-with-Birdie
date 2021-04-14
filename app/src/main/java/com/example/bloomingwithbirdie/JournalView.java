@@ -34,6 +34,7 @@ public class JournalView extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             // Load the module
             module = (Module) getIntent().getSerializableExtra("module");
+            user = (User) getIntent().getSerializableExtra("user");
 
             // Set appropriate ActionBar color & Title
             configureActionBar(module);
@@ -113,6 +114,7 @@ public class JournalView extends AppCompatActivity {
     public void loadDrawingJournal(View view) {
         Intent intent = new Intent(this, DrawingJournalView.class);
         intent.putExtra("module", module);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

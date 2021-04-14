@@ -4,7 +4,6 @@
 
 package com.example.bloomingwithbirdie;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -12,9 +11,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-//TODO: Add buttons for "My Drawings", "Badges", and "GrownUps", add them to the loadOtherView function.
-// Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
     BackgroundPlayer backgroundMusic;
@@ -38,20 +34,23 @@ public class MainActivity extends AppCompatActivity {
         // Setup the ActionBar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
         getSupportActionBar().setTitle("Blooming With Birdie");
-//        getSupportActionBar().setCustomView(ActionBar.DISPLAY_SHOW_CUSTOM);
-        user = new User("Test User", "pa33w0rd");
 
-        /**Ideally, these would be loaded from a DataBase - I'm not sure how realistic that is given the time frame...
-         * Additionally, it doesn't seem the data for these persists when we change Activities (Screens), so we will
-         * need to find a solution for this.*/
+        /**
+         * If the user already exists, we would just want to load the user that is passed from whatever view we just came from.
+         * Currently the else part of this statement creates a new user, but this won't be needed when we get the Login feature completed.
+         * **/
+        if (getIntent().getExtras() != null) {
+            user = (User) getIntent().getSerializableExtra("user");
+        } else {
+            user = new User("Test User", "test@gmail.com","pa33w0rd");
+        }
+
         // Create our Modules, set their names & videoId's for youtube
-        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "a");
-        module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow));
-        module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue));
-        module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red));
+        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "monarch_badge");
+        module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow), "Bee", "bee_badge");
+        module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue), "River", "river_badge");
+        module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red), "Wildflower", "wildflower_badge");
 
-        // Update buttons texts, this can be done via variable binding in XML
-        // but it was a huge headache to implement
         button1 = findViewById(R.id.module1);
         button1.setText(module1.getName());
         button2 = findViewById(R.id.module2);
@@ -88,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("module", module4);
                 break;
         }
-        if (intent != null)
+        if (intent != null) {
+            intent.putExtra("user", user);
             startActivity(intent);
+        }
     }
 
     /** Same functionality as loadModule, however this handles the buttons that are no modules (Drawings, Badges, Grownups)*/
@@ -103,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.drawingButton:
                 intent = new Intent(this, MyDrawingsView.class);
+                break;
+            case R.id.grownupsButton:
+                intent = new Intent(this, LoginView.class);
                 break;
         }
         if (intent != null) {
