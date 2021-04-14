@@ -22,6 +22,8 @@ public class LoginView extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
         getSupportActionBar().setTitle("Login");
 
+        // Can use the getText method for these variables to build the DB query
+        // Should probably encrypt the password, but for the scope of this program, I'd say forget it
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
     }
