@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import android.widget.Button;
 // Find a way to make module data persist throughout the Application.
 
 public class MainActivity extends AppCompatActivity {
+    BackgroundPlayer backgroundMusic;
+    MediaPlayer backgroundPlayer;
     private static Module module1;
     private Module module2;
     private Module module3;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Setup the ActionBar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
@@ -56,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         button3.setText(module3.getName());
         button4 = findViewById(R.id.module4);
         button4.setText(module4.getName());
+
+        //Initialize Media Player
+        backgroundMusic = BackgroundPlayer.getInstance();
+        backgroundMusic.init(getApplicationContext());
+        backgroundPlayer = BackgroundPlayer.getSingletonMedia();
+        backgroundPlayer.start();
+
     }
 
     /** Changes the view based on what module button is clicked and passes the necessary Module */

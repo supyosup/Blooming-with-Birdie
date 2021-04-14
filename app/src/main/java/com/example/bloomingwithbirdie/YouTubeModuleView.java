@@ -10,23 +10,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 
  //FIXME: The YouTube player fullscreen mode does not properly exit.
  // Possible solution: Try using the Official YouTubePlayer that Google has, but the setup is a bit more involved.
 
 public class YouTubeModuleView extends AppCompatActivity {
+    MediaPlayer backgroundPlayer;
     private YouTubePlayerView playerView;
+    private YouTubePlayerTracker tracker;
     private Module module;
     private Button journalButton;
+    private YouTubePlayerListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,10 @@ public class YouTubeModuleView extends AppCompatActivity {
         setContentView(R.layout.youtube_module_view);
         playerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(playerView);
+        backgroundPlayer = BackgroundPlayer.getSingletonMedia();
+        tracker = new YouTubePlayerTracker();
         journalButton = findViewById(R.id.journalButton);
+
 
         // Verify that the Module was sent from previous Activity
         if (getIntent().getExtras() != null) {
@@ -53,7 +64,22 @@ public class YouTubeModuleView extends AppCompatActivity {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     String videoId = module.getVideoId();
+                    youTubePlayer.addListener(tracker);
                     youTubePlayer.cueVideo(videoId, 0);
+                    backgroundPlayer.pause();
+                }
+
+                @Override
+                public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
+                    // To view the tracker state in real time
+                    Toast.makeText(getApplicationContext(), tracker.getState().toString(), Toast.LENGTH_SHORT).show();
+
+                    // Wonky pause/play music functionality
+                    if (tracker.getState() == playerState.BUFFERING || tracker.getState() == playerState.PLAYING) {
+                        backgroundPlayer.pause();
+                    } else if (tracker.getState() == playerState.ENDED){
+                        backgroundPlayer.start();
+                    }
                 }
             });
         }
@@ -74,4 +100,6 @@ public class YouTubeModuleView extends AppCompatActivity {
         // Set the ActionBar color based on the module
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
     }
+
+
 }
