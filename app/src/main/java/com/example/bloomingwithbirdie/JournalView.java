@@ -22,7 +22,8 @@ public class JournalView extends AppCompatActivity {
     private Module module;
     private DatePicker datePicker;
     private int textId;
-    private int counter;
+    private int index;
+    private int maxPages;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,42 +39,42 @@ public class JournalView extends AppCompatActivity {
             configureActionBar(module);
 
             // Just some test data for the different fields
-            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
-            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
-            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
+//            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
+//            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
+//            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
 
             // If the Journal is not empty, loop through the Journal entries
             // and populate all of the textboxes
             if (!module.getJournal().getDates().isEmpty()) {
-                counter = 1;
-                for (String date : module.getJournal().getDates()) {
-                    String imageViewId = "date" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(date);
-                    counter++;
-                }
+                String imageViewId;
+                int resID;
+                index = 0;
+                maxPages = module.getJournal().getDates().size();
+                //Populate date text
+                String date = module.getJournal().getDates().get(index);
+                imageViewId = "dateView";
+                resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+                TextView view = findViewById(resID);
+                view.setTextColor(getResources().getColor(R.color.black));
+                view.setText(date);
 
-                counter = 1;
-                for (String location : module.getJournal().getLocations()) {
-                    String imageViewId = "location" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(location);
-                    counter++;
-                }
+                //Populate location text
+                String location = module.getJournal().getLocations().get(index);
+                imageViewId = "locationView";
+                resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+                view = findViewById(resID);
+                view.setTextColor(getResources().getColor(R.color.black));
+                view.setText(location);
 
-                counter = 1;
-                for (String description : module.getJournal().getDescriptions()) {
-                    String imageViewId = "description" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(description);
-                    counter++;
-                }
+
+                //Populate descrioptoin text
+                String description = module.getJournal().getDescriptions().get(index);
+                imageViewId = "descriptionView";
+                resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+                view = findViewById(resID);
+                view.setTextColor(getResources().getColor(R.color.black));
+                view.setText(description);
+
             }
 
             //Turn on background music
@@ -83,26 +84,7 @@ public class JournalView extends AppCompatActivity {
     }
 
 
-    public void toggleDatePicker(View view) {
-        textId = view.getId();
-        view.setBackgroundColor(getResources().getColor(R.color.yellow));
-        datePicker.setVisibility(View.VISIBLE);
-        dateConfirmButton.setVisibility(View.VISIBLE);
-    }
 
-    /**
-     * This function will set the selected date in the "Date" column of the Journal & add the data, again
-     * currently data does NOT persist throughout the application views.
-     */
-    public void confirmDate(View view) {
-        TextView dateText = (TextView) findViewById(textId);
-        dateText.setBackground(getResources().getDrawable(R.drawable.edittextbackground));
-        dateText.setTextColor(getResources().getColor(R.color.black));
-        dateText.setText(String.format("%d/%d/%d", datePicker.getMonth(), datePicker.getDayOfMonth(), datePicker.getYear()));
-        datePicker.setVisibility(View.INVISIBLE);
-        dateConfirmButton.setVisibility(View.INVISIBLE);
-        module.getJournal().addEntry(String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()), "", "");
-    }
 
     /**
      * This function is used to set the correct title and color for the ActionBar at the top of the application.
@@ -138,5 +120,82 @@ public class JournalView extends AppCompatActivity {
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void goBackAPage(View view)
+    {
+        if(!module.getJournal().getDates().isEmpty())
+        {
+            if(index == 0)
+            {
+                index = maxPages;
+            }
+            index-=1;
+            String imageViewId;
+            int resID;
+            //Populate date text
+            String date = module.getJournal().getDates().get(index);
+            imageViewId = "dateView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            TextView textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(date);
+
+            //Populate location text
+            String location = module.getJournal().getLocations().get(index);
+            imageViewId = "locationView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(location);
+
+
+            //Populate descrioptoin text
+            String description = module.getJournal().getDescriptions().get(index);
+            imageViewId = "descriptionView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(description);
+
+
+        }
+    }
+    public void goForwardAPage(View view)
+    {
+        if(!module.getJournal().getDates().isEmpty())
+        {
+            index+=1;
+            if(index == maxPages)
+            {
+                index = 0;
+            }
+            String imageViewId;
+            int resID;
+            //Populate date text
+            String date = module.getJournal().getDates().get(index);
+            imageViewId = "dateView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            TextView textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(date);
+
+            //Populate location text
+            String location = module.getJournal().getLocations().get(index);
+            imageViewId = "locationView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(location);
+
+
+            //Populate description text
+            String description = module.getJournal().getDescriptions().get(index);
+            imageViewId = "descriptionView";
+            resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+            textView = findViewById(resID);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(description);
+        }
     }
 }

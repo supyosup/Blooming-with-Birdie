@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//TODO: Update code to dynamically load User data into Date/Location/Description fields, clean up code
 
 public class JournalEntryView extends AppCompatActivity {
     private ImageButton homeButton;
