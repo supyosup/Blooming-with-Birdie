@@ -93,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawingButton:
                 intent = new Intent(this, MyDrawingsView.class);
                 break;
+            case R.id.grownupsButton:
+                intent = new Intent(this, LoginView.class);
+                break;
         }
         if (intent != null) {
             startActivity(intent);
