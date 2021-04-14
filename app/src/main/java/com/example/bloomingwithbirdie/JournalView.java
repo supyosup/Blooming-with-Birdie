@@ -23,16 +23,13 @@ public class JournalView extends AppCompatActivity {
     private DatePicker datePicker;
     private int textId;
     private int counter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_view);
 
 
-        datePicker = findViewById(R.id.datePicker);
-        dateConfirmButton = findViewById(R.id.dateConfirmButton);
-        datePicker.setBackgroundColor(getResources().getColor(R.color.green));
+
         if (getIntent().getExtras() != null) {
             // Load the module
             module = (Module) getIntent().getSerializableExtra("module");
@@ -116,6 +113,16 @@ public class JournalView extends AppCompatActivity {
 
         // Set the ActionBar color based on the module
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(module.getColor()));
+    }
+
+    /**
+     * This function will load the screen for adding entries
+     * into the module's journal.
+     */
+    public void addJournalEntry(View view) {
+        Intent intent = new Intent(this, JournalEntryView.class);
+        intent.putExtra("module",module);
+        startActivity(intent);
     }
 
     /**

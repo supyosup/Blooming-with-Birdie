@@ -19,8 +19,10 @@ public class JournalEntryView extends AppCompatActivity {
     private Button dateConfirmButton;
     private Module module;
     private DatePicker datePicker;
+    private TextView textView;
     private int textId;
     private int counter;
+    private String dateFromPicker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,44 +40,13 @@ public class JournalEntryView extends AppCompatActivity {
             // Set appropriate ActionBar color & Title
             configureActionBar(module);
 
-            // Just some test data for the different fields
-            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
-            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
-            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
+//            // Just some test data for the different fields
+//            module.getJournal().addEntry("12/16/2021", "By the Oak tree", "It was a yellow bug");
+//            module.getJournal().addEntry("12/16/2021", "In the field", "Blue / black butterfly");
+//            module.getJournal().addEntry("12/16/2021", "In the backyard", "Big fuzzy caterpillar");
 
-            // If the Journal is not empty, loop through the Journal entries
-            // and populate all of the textboxes
-            if (!module.getJournal().getDates().isEmpty()) {
-                counter = 1;
-                for (String date : module.getJournal().getDates()) {
-                    String imageViewId = "date" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(date);
-                    counter++;
-                }
 
-                counter = 1;
-                for (String location : module.getJournal().getLocations()) {
-                    String imageViewId = "location" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(location);
-                    counter++;
-                }
 
-                counter = 1;
-                for (String description : module.getJournal().getDescriptions()) {
-                    String imageViewId = "description" + counter;
-                    int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-                    TextView view = findViewById(resID);
-                    view.setTextColor(getResources().getColor(R.color.black));
-                    view.setText(description);
-                    counter++;
-                }
-            }
         }
     }
 
@@ -98,8 +69,8 @@ public class JournalEntryView extends AppCompatActivity {
         dateText.setText(String.format("%d/%d/%d", datePicker.getMonth(), datePicker.getDayOfMonth(), datePicker.getYear()));
         datePicker.setVisibility(View.INVISIBLE);
         dateConfirmButton.setVisibility(View.INVISIBLE);
-        module.getJournal().addEntry(String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()), "", "");
-    }
+        dateFromPicker = String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear());
+       }
 
     /**
      * This function is used to set the correct title and color for the ActionBar at the top of the application.
@@ -115,8 +86,29 @@ public class JournalEntryView extends AppCompatActivity {
     /**
      * This function will load the next screen in the module
      **/
-    public void loadDrawingJournal(View view) {
-        Intent intent = new Intent(this, DrawingJournalView.class);
+    public void addEntry(View view) {
+        String imageViewId;
+        int resID;
+        String location = "";
+        String description = "";
+        //Check that for date
+        if(dateFromPicker == null)
+        {
+            // TODO: Output error message. Date required.
+            return;
+        }
+        // Add journal entry to module
+        imageViewId = "location";
+        resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+        textView = findViewById(resID);
+        location = String.valueOf(textView.getText());
+        imageViewId = "description";
+        resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
+        textView = findViewById(resID);
+        description = String.valueOf(textView.getText());
+        module.getJournal().addEntry(dateFromPicker,location,description);
+        // Go back to Journal View
+        Intent intent = new Intent(this, JournalView.class);
         intent.putExtra("module", module);
         startActivity(intent);
     }
