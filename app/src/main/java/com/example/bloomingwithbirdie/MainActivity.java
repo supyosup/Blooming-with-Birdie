@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             user = (User) getIntent().getSerializableExtra("user");
         } else {
-            user = new User("Test User", "pa33w0rd");
+            user = new User("Test User", "test@gmail.com","pa33w0rd");
         }
         
         // Create our Modules, set their names & videoId's for youtube

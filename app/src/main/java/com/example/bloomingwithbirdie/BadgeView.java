@@ -16,10 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 public class BadgeView extends AppCompatActivity {
-    private ArrayList<Badge> badges;
+    private List<Badge> badges;
     private User user;
     private int counter = 0;
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.List;
 
 public class LoginView extends AppCompatActivity {
 
@@ -37,8 +38,14 @@ public class LoginView extends AppCompatActivity {
      * This is where we would put the DB query and return the User account if login is successful
      *
      */
-    public void login(View view) {
-
+    public User login(View view) {
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
+        List<User> userList = DatabaseClass.getDatabase(getApplicationContext()).daoClass().loadAllByEmailPassword(email, password);
+        if (userList.size() == 1)
+            for (User user : userList)
+                return user;
+        return null;
     }
 
     public void loadCreateAccountPage(View view) {
