@@ -8,6 +8,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class ModuleCompleteView extends AppCompatActivity {
 
@@ -27,7 +30,19 @@ public class ModuleCompleteView extends AppCompatActivity {
         badgeView = (ImageView) findViewById(R.id.completeModuleBadgeView);
         badge = module.getBadge();
         user = (User) getIntent().getSerializableExtra("user");
-        user.addBadge(badge);
+
+        boolean userHasBadge = false;
+        List<Badge> badges = user.getBadges();
+        for (Badge userBadge : badges) {
+            if (userBadge.getName().compareTo(badge.getName()) == 0) {
+                userHasBadge = true;
+            }
+        }
+
+        if (userHasBadge == false) {
+            user.addBadge(badge);
+        }
+
         textView = findViewById(R.id.completeModuleTextbox);
         textView.setText("You finished the " + module.getName() + " Module and earned this badge!");
         textView.setGravity(Gravity.CENTER);
