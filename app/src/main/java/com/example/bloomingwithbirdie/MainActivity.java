@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             user = new User("Test User", "test@gmail.com","pa33w0rd");
         }
-        
+
         // Create our Modules, set their names & videoId's for youtube
-        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "a");
-        module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow));
-        module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue));
-        module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red));
+        module1 = new Module("Monarch Butterflies", "rVN0QPs3eyo", getResources().getColor(R.color.orange), "Monarch", "monarch_badge");
+        module2 = new Module("Bees", "XDc6Kss5--c", getResources().getColor(R.color.yellow), "Bee", "bee_badge");
+        module3 = new Module("Rivers","1U-cgn3cEGA", getResources().getColor(R.color.blue), "River", "river_badge");
+        module4 = new Module("Wildflowers","Hy5wnwuIZ2M", getResources().getColor(R.color.red), "Wildflower", "wildflower_badge");
 
         button1 = findViewById(R.id.module1);
         button1.setText(module1.getName());

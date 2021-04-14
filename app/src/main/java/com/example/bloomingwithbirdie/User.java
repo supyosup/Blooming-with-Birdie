@@ -4,6 +4,7 @@
 package com.example.bloomingwithbirdie;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -31,7 +32,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         // New Users won't have badges. Those will only apply when existing user
-        List<Badge> badges;
+        badges = new ArrayList<>();
     }
 
     public void setBadges(List<Badge> badges) {

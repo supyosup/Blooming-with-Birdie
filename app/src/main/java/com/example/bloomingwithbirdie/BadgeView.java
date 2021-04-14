@@ -36,7 +36,6 @@ public class BadgeView extends AppCompatActivity {
             badges = user.getBadges();
 
             for (Badge badge: badges) {
-//                Toast.makeText(getApplicationContext(), getResources().getDrawable(R.drawable.a), Toast.LENGTH_SHORT).show();
                 String imageViewId = "imageView" + counter;
                 int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
                 ImageView imageView = findViewById(resID);
