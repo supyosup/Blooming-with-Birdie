@@ -23,6 +23,7 @@ public class JournalEntryView extends AppCompatActivity {
     private int textId;
     private int counter;
     private String dateFromPicker = null;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class JournalEntryView extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             // Load the module
             module = (Module) getIntent().getSerializableExtra("module");
-
+            user = (User) getIntent().getSerializableExtra("user");
             // Set appropriate ActionBar color & Title
             configureActionBar(module);
 
@@ -96,6 +97,7 @@ public class JournalEntryView extends AppCompatActivity {
         if (location.getText().toString().equals("") || description.getText().toString().equals("")) {
             Intent intent = new Intent(this, JournalView.class);
             intent.putExtra("module", module);
+            intent.putExtra("user", user);
             startActivity(intent);
         } else {
             if (dateFromPicker == null)
@@ -107,6 +109,7 @@ public class JournalEntryView extends AppCompatActivity {
         // Go back to Journal View
         Intent intent = new Intent(this, JournalView.class);
         intent.putExtra("module", module);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

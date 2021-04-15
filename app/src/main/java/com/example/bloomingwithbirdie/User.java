@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String password;
 
     @ColumnInfo(name = "badge")
-    private List<Badge> badges = null;
+    private List<Badge> badges;
 
     public User(String name, String email, String password) {
         this.name = name;
