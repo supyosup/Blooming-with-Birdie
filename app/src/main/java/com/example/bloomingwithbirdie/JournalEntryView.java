@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,26 +87,23 @@ public class JournalEntryView extends AppCompatActivity {
      * This function will load the next screen in the module
      **/
     public void addEntry(View view) {
+        EditText location = findViewById(R.id.location);
+        EditText description = findViewById(R.id.description);
+
         String imageViewId;
         int resID;
-        String location = "";
-        String description = "";
-        //Check that for date
-        if(dateFromPicker == null)
-        {
-            // TODO: Output error message. Date required.
-            return;
+
+        if (location.getText().toString().equals("") || description.getText().toString().equals("")) {
+            Intent intent = new Intent(this, JournalView.class);
+            intent.putExtra("module", module);
+            startActivity(intent);
+        } else {
+            if (dateFromPicker == null)
+                dateFromPicker = String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear());
+
+            module.getJournal().addEntry(dateFromPicker, location.getText().toString(), description.getText().toString());
         }
-        // Add journal entry to module
-        imageViewId = "location";
-        resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-        textView = findViewById(resID);
-        location = String.valueOf(textView.getText());
-        imageViewId = "description";
-        resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
-        textView = findViewById(resID);
-        description = String.valueOf(textView.getText());
-        module.getJournal().addEntry(dateFromPicker,location,description);
+
         // Go back to Journal View
         Intent intent = new Intent(this, JournalView.class);
         intent.putExtra("module", module);

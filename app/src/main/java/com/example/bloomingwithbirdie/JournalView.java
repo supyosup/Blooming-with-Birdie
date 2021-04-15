@@ -106,7 +106,8 @@ public class JournalView extends AppCompatActivity {
      */
     public void addJournalEntry(View view) {
         Intent intent = new Intent(this, JournalEntryView.class);
-        intent.putExtra("module",module);
+        intent.putExtra("module", module);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

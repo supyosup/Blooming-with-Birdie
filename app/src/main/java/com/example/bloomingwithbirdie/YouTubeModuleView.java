@@ -74,7 +74,7 @@ public class YouTubeModuleView extends AppCompatActivity {
                 @Override
                 public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
                     // To view the tracker state in real time
-                    Toast.makeText(getApplicationContext(), tracker.getState().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), tracker.getState().toString(), Toast.LENGTH_SHORT).show();
 
                     // Wonky pause/play music functionality
                     if (tracker.getState() == playerState.BUFFERING || tracker.getState() == playerState.PLAYING) {
