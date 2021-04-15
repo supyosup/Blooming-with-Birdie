@@ -35,6 +35,7 @@ public class YouTubeModuleView extends AppCompatActivity {
     private Module module;
     private Button journalButton;
     private YouTubePlayerListener listener;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

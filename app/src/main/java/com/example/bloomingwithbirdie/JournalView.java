@@ -24,6 +24,8 @@ public class JournalView extends AppCompatActivity {
     private int textId;
     private int index;
     private int maxPages;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
