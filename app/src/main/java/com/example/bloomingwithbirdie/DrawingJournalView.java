@@ -2,7 +2,6 @@ package com.example.bloomingwithbirdie;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,24 +21,23 @@ import java.util.Date;
 public class DrawingJournalView extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private ImageView imageView;
     private String currentPhotoPath;
     private Module module;
     private Button cameraButton;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawing_journal);
-        imageView = findViewById(R.id.thumbnailView);
 
         if (getIntent().getExtras() != null) {
             module = (Module) getIntent().getSerializableExtra("module");
+            user = (User) getIntent().getSerializableExtra("user");
             configureActionBar(module);
             cameraButton = findViewById(R.id.cameraButton);
             cameraButton.setBackgroundColor(module.getColor());
         }
-
     }
 
     public void loadCamera(View view) {
@@ -62,6 +60,7 @@ public class DrawingJournalView extends AppCompatActivity {
                     "com.example.bloomingwithbirdie.fileprovider",
                     photoFile);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            user.addPhoto(photoFile);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
@@ -76,7 +75,6 @@ public class DrawingJournalView extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
@@ -93,7 +91,6 @@ public class DrawingJournalView extends AppCompatActivity {
                 myImage.setImageBitmap(myBitmap);
             }
         }
-
     }
 
     /**  This function is used to set the correct title and color for the ActionBar at the top of the application. **/
@@ -108,6 +105,14 @@ public class DrawingJournalView extends AppCompatActivity {
     public void finishModule(View view) {
         Intent intent = new Intent(this, ModuleCompleteView.class);
         intent.putExtra("module", module);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    public void homeButtonPressed(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }

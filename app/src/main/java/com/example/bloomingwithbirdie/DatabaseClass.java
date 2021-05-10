@@ -10,10 +10,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 1, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class DatabaseClass extends RoomDatabase { //AppDatabase
-    //public abstract DaoClass daoClass();
+    public abstract DaoClass daoClass();
 
     private static volatile DatabaseClass INSTANCE;
     private static final int NUMBER_OF_THREADS = 1;

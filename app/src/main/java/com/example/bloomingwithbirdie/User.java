@@ -3,10 +3,15 @@
 
 package com.example.bloomingwithbirdie;
 
+import android.graphics.Bitmap;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user")
@@ -17,20 +22,32 @@ public class User implements Serializable {
     @ColumnInfo(name = "name")
     private String name;
 
+    @ColumnInfo(name = "email")
+    private String email;
+
     @ColumnInfo(name = "password")
     private String password;
 
     @ColumnInfo(name = "badge")
-    private ArrayList<Badge> badges = null;
+    private List<Badge> badges;
 
-    public User(String name, String password) {
+    @Ignore
+    private List<File> photos;
+
+    public User(String name, String email, String password) {
         this.name = name;
+        this.email = email;
         this.password = password;
         // New Users won't have badges. Those will only apply when existing user
         badges = new ArrayList<>();
+        photos = new ArrayList<>();
     }
 
-    public void setBadges(ArrayList<Badge> badges) {
+    public void addPhoto(File photo) { photos.add(photo); }
+
+    public List<File> getPhotos() { return photos; }
+
+    public void setBadges(List<Badge> badges) {
         this.badges = badges;
     }
 
@@ -38,7 +55,7 @@ public class User implements Serializable {
         badges.add(badge);
     }
 
-    public ArrayList<Badge> getBadges() {
+    public List<Badge> getBadges() {
         return badges;
     }
 
@@ -51,4 +68,8 @@ public class User implements Serializable {
     public void setPassword(String password){ this.password = password; }
 
     public String getPassword() { return password; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }

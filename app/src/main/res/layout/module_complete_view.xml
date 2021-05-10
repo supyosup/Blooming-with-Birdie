@@ -18,11 +18,13 @@
 
     <TextView
         android:id="@+id/completeModuleTextbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="448dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="935dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
+        android:textAlignment="gravity"
+        android:textSize="25dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -13,15 +13,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 public class BadgeView extends AppCompatActivity {
-    private ArrayList<Badge> badges;
+    private List<Badge> badges;
     private User user;
     private int counter = 0;
+    private TextView noBadges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,12 @@ public class BadgeView extends AppCompatActivity {
             user = (User) getIntent().getSerializableExtra("user");
             badges = user.getBadges();
 
+            if (badges.isEmpty()) {
+                noBadges = findViewById(R.id.noBadgeText);
+                noBadges.setText("You don't have any badges yet!\nComplete a lesson to earn a badge!");
+            }
+
             for (Badge badge: badges) {
-//                Toast.makeText(getApplicationContext(), getResources().getDrawable(R.drawable.a), Toast.LENGTH_SHORT).show();
                 String imageViewId = "imageView" + counter;
                 int resID = getResources().getIdentifier(imageViewId, "id", getPackageName());
                 ImageView imageView = findViewById(resID);
@@ -49,6 +55,7 @@ public class BadgeView extends AppCompatActivity {
 
     public void returnHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }
